@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.udacitypopularmoviesappstage2.adapter.MovieAdapter;
 import com.example.udacitypopularmoviesappstage2.data.Movie;
 import com.example.udacitypopularmoviesappstage2.database.AppDatabase;
 import com.example.udacitypopularmoviesappstage2.utils.JSONUtils;

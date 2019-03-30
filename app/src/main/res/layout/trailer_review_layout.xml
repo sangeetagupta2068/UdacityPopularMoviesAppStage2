@@ -15,7 +15,9 @@
         android:id="@+id/detail_trailer_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"/>
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        />
     <View
         android:id="@+id/view2"
         android:layout_width="match_parent"

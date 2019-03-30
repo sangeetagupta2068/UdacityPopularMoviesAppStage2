@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.udacitypopularmoviesappstage2.adapter.ReviewAdapter;
+import com.example.udacitypopularmoviesappstage2.adapter.TrailerAdapter;
 import com.example.udacitypopularmoviesappstage2.database.AppExecutors;
 import com.example.udacitypopularmoviesappstage2.utils.NetworkUtils;
 import com.squareup.picasso.Picasso;
