@@ -24,8 +24,8 @@ public class NetworkUtils {
     public static final String YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v=";
     private static final String MOVIE_BASE_URL = "http://api.themoviedb.org/3/movie/";
 
-    public static URL buildURLForMovies(boolean flag) {
-        if (flag) {
+    public static URL buildURLForMovies(int flag) {
+        if (flag == 1) {
             SORT_TYPE = "popular";
         } else {
             SORT_TYPE = "top_rated";

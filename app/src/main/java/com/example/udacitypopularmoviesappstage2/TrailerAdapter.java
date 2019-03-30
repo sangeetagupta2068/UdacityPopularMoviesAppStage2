@@ -1,4 +1,4 @@
-package com.example.udacitypopularmoviesappstage2.adapter;
+package com.example.udacitypopularmoviesappstage2;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,9 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.example.udacitypopularmoviesappstage2.DetailActivity;
-import com.example.udacitypopularmoviesappstage2.R;
 
 
 public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerViewHolder> {
@@ -47,7 +44,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
 
         TrailerViewHolder(View itemView) {
             super(itemView);
-            trailerNumberTextView = (TextView) itemView.findViewById(R.id.trailer_item_text_view);
+            trailerNumberTextView = itemView.findViewById(R.id.trailer_item_text_view);
             itemView.setOnClickListener(this);
         }
 

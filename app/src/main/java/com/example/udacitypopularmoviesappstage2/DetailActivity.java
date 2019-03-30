@@ -13,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.udacitypopularmoviesappstage2.adapter.ReviewAdapter;
-import com.example.udacitypopularmoviesappstage2.adapter.TrailerAdapter;
 import com.example.udacitypopularmoviesappstage2.database.AppExecutors;
 import com.example.udacitypopularmoviesappstage2.utils.NetworkUtils;
 import com.squareup.picasso.Picasso;
@@ -57,6 +55,8 @@ public class DetailActivity extends AppCompatActivity {
             } else {
                 markAsFavouriteView.setText(R.string.mark_as_favourite_label);
             }
+
+            System.out.println(isFavouriteFlag);
         }
 
         markAsFavouriteView.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +83,8 @@ public class DetailActivity extends AppCompatActivity {
                     Toast.makeText(DetailActivity.this, MainActivity.movies.get(MOVIE_ITEM_INDEX).getMovieName() + " added to favourites!", Toast.LENGTH_SHORT).show();
                     markAsFavouriteView.setText(R.string.remove_favourite_label);
                 }
+
+                finish();
             }
         });
 

@@ -1,4 +1,4 @@
-package com.example.udacitypopularmoviesappstage2.adapter;
+package com.example.udacitypopularmoviesappstage2;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,9 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.example.udacitypopularmoviesappstage2.DetailActivity;
-import com.example.udacitypopularmoviesappstage2.R;
 
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
@@ -40,7 +37,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
         public ReviewViewHolder(View itemView) {
             super(itemView);
-            reviewTextView = (TextView) itemView.findViewById(R.id.review_item_text_view);
+            reviewTextView = itemView.findViewById(R.id.review_item_text_view);
 
         }
 

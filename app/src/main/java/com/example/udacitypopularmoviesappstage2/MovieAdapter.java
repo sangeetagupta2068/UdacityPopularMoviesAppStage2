@@ -1,4 +1,4 @@
-package com.example.udacitypopularmoviesappstage2.adapter;
+package com.example.udacitypopularmoviesappstage2;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.udacitypopularmoviesappstage2.MainActivity;
-import com.example.udacitypopularmoviesappstage2.R;
 import com.squareup.picasso.Picasso;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
