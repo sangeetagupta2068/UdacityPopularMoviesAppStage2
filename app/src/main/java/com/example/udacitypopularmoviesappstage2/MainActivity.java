@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,11 +15,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.example.udacitypopularmoviesappstage2.data.Movie;
 import com.example.udacitypopularmoviesappstage2.database.AppDatabase;
+import com.example.udacitypopularmoviesappstage2.databinding.ActivityMainBinding;
 import com.example.udacitypopularmoviesappstage2.utils.JSONUtils;
 import com.example.udacitypopularmoviesappstage2.utils.NetworkUtils;
 
@@ -36,12 +36,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     static public ArrayList<Movie> favourite_movies = new ArrayList<>();
     static public AppDatabase appDatabase;
 
-
-    RecyclerView movieRecyclerView;
-    ProgressBar progressBar;
-    TextView textView;
+    ActivityMainBinding activityMainBinding;
     MovieAdapter movieAdapter;
-    GridLayoutManager gridLayoutManager;
+    RecyclerView.LayoutManager gridLayoutManager;
 
     int sort_value = POPULARITY;
 
@@ -70,23 +67,24 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         protected void onPreExecute() {
             super.onPreExecute();
             MainActivity.movies.clear();
-            progressBar.setVisibility(View.VISIBLE);
-            movieRecyclerView.setVisibility(View.INVISIBLE);
-            textView.setVisibility(View.INVISIBLE);
+            activityMainBinding.connectionStatus.setVisibility(View.VISIBLE);
+            activityMainBinding.moviePosterList.setVisibility(View.INVISIBLE);
+            activityMainBinding.logView.setVisibility(View.INVISIBLE);
 
         }
 
         @Override
         protected void onPostExecute(Integer bool) {
             super.onPostExecute(bool);
-            progressBar.setVisibility(View.INVISIBLE);
+            activityMainBinding.connectionStatus.setVisibility(View.INVISIBLE);
             if (MainActivity.movies.size() == 0 || MainActivity.movies == null) {
-                textView.setText(getString(R.string.log_failed_data_retrieval));
-                textView.setVisibility(View.VISIBLE);
-                movieRecyclerView.setVisibility(View.INVISIBLE);
+                activityMainBinding.logView.setText(getString(R.string.log_failed_data_retrieval));
+                activityMainBinding.logView.setVisibility(View.VISIBLE);
+                activityMainBinding.connectionStatus.setVisibility(View.INVISIBLE);
             } else {
-                movieRecyclerView.setVisibility(View.VISIBLE);
-                textView.setVisibility(View.INVISIBLE);
+                activityMainBinding.moviePosterList.setVisibility(View.VISIBLE);
+                activityMainBinding.logView.setVisibility(View.INVISIBLE);
+                activityMainBinding.connectionStatus.setVisibility(View.INVISIBLE);
             }
 
             movieAdapter.notifyDataSetChanged();
@@ -115,16 +113,16 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         if(sort_value== FAVOURITE){
             MainActivity.movies.clear();
             if (MainActivity.favourite_movies.size() == 0) {
-                textView.setText("No favourite movies added!");
-                progressBar.setVisibility(View.INVISIBLE);
-                textView.setVisibility(View.VISIBLE);
-                movieRecyclerView.setVisibility(View.INVISIBLE);
+                activityMainBinding.logView.setText("No favourite movies added!");
+                activityMainBinding.connectionStatus.setVisibility(View.INVISIBLE);
+                activityMainBinding.logView.setVisibility(View.VISIBLE);
+                activityMainBinding.moviePosterList.setVisibility(View.INVISIBLE);
                 return;
             }
 
             MainActivity.movies.addAll(MainActivity.favourite_movies);
-            textView.setVisibility(View.INVISIBLE);
-            movieRecyclerView.setVisibility(View.VISIBLE);
+            activityMainBinding.logView.setVisibility(View.INVISIBLE);
+            activityMainBinding.moviePosterList.setVisibility(View.VISIBLE);
 
             movieAdapter.notifyDataSetChanged();
         }
@@ -139,10 +137,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
 
         appDatabase = AppDatabase.getInstance(MainActivity.this);
 
-        textView = findViewById(R.id.log_view);
-        progressBar = findViewById(R.id.connection_status);
-        movieRecyclerView = findViewById(R.id.movie_poster_list);
-
+        activityMainBinding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
 
         int gridColumnCount;
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -164,9 +159,9 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
 
         initialize();
 
-        movieRecyclerView.setHasFixedSize(true);
-        movieRecyclerView.setLayoutManager(gridLayoutManager);
-        movieRecyclerView.setAdapter(movieAdapter);
+        activityMainBinding.moviePosterList.setHasFixedSize(true);
+        activityMainBinding.moviePosterList.setLayoutManager(gridLayoutManager);
+        activityMainBinding.moviePosterList.setAdapter(movieAdapter);
         movieAdapter.notifyDataSetChanged();
 
         setupViewModel();
