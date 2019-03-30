@@ -12,7 +12,6 @@
         android:background="#009688" />
 
     <android.support.v7.widget.RecyclerView
-        android:background="@drawable/custom_ripple"
         android:id="@+id/detail_trailer_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
