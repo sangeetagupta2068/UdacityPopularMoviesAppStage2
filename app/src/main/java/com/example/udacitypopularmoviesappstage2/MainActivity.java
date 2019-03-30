@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     MovieAdapter movieAdapter;
     RecyclerView.LayoutManager gridLayoutManager;
 
-    int sort_value = POPULARITY;
+    int sort_value;
+    int gridCount;
 
     private class MovieAsyncTask extends AsyncTask<Integer, Void, Integer> {
 
@@ -132,42 +133,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
 
     }
 
-    public void initialize() {
-        setTitle(R.string.home_screen_title);
-
-        appDatabase = AppDatabase.getInstance(MainActivity.this);
-
-        activityMainBinding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
-
-        int gridColumnCount;
-        if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            gridColumnCount = 2;
-        } else {
-            gridColumnCount = 3;
-        }
-
-        gridLayoutManager = new GridLayoutManager(this, gridColumnCount);
-        movieAdapter = new MovieAdapter(this, this);
-
-        new MovieAsyncTask().execute(POPULARITY);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        initialize();
-
-        activityMainBinding.moviePosterList.setHasFixedSize(true);
-        activityMainBinding.moviePosterList.setLayoutManager(gridLayoutManager);
-        activityMainBinding.moviePosterList.setAdapter(movieAdapter);
-        movieAdapter.notifyDataSetChanged();
-
-        setupViewModel();
-
-    }
-
     @Override
     public void onMovieItemClick(final int index) {
         boolean flag = false;
@@ -207,4 +172,44 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        if(savedInstanceState!=null){
+            gridCount = savedInstanceState.getInt("LAST_GRID_COUNT");
+            sort_value = savedInstanceState.getInt("LAST_SEARCH_KEY");
+        } else {
+            sort_value = POPULARITY;
+            if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                gridCount = 2;
+            } else {
+                gridCount = 3;
+            }
+        }
+
+        setTitle(R.string.home_screen_title);
+        activityMainBinding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
+        gridLayoutManager = new GridLayoutManager(this, gridCount);
+        movieAdapter = new MovieAdapter(this, this);
+        activityMainBinding.moviePosterList.setHasFixedSize(true);
+        activityMainBinding.moviePosterList.setLayoutManager(gridLayoutManager);
+        activityMainBinding.moviePosterList.setAdapter(movieAdapter);
+        movieAdapter.notifyDataSetChanged();
+
+        new MovieAsyncTask().execute(sort_value);
+
+        appDatabase = AppDatabase.getInstance(MainActivity.this);
+        setupViewModel();
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        int lastSearch = sort_value;
+        outState.putInt("LAST_SEARCH_KEY",lastSearch);
+        outState.putInt("LAST_GRID_COUNT",gridCount);
+    }
 }
