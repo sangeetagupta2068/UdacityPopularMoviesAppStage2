@@ -48,7 +48,6 @@ public class JSONUtils {
             JSONArray trailers = j.getJSONArray("results");
             for (int i = 0; i < trailers.length() - 1; i++) {
                 DetailActivity.trailerIDs.add(trailers.getJSONObject(i).getString("key"));
-
             }
 
         } catch (JSONException e) {
