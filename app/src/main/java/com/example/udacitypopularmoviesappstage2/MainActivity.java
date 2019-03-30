@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
             MainActivity.movies.clear();
             if (MainActivity.favourite_movies.size() == 0) {
                 textView.setText("No favourite movies added!");
+                progressBar.setVisibility(View.INVISIBLE);
                 textView.setVisibility(View.VISIBLE);
                 movieRecyclerView.setVisibility(View.INVISIBLE);
                 return;
