@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">UdacityPopularMoviesAppStage2</string>
+    <string name="rating_label">Rating</string>
+    <string name="name_label">Movie: </string>
+    <string name="release_date_label">Release Date:</string>
+    <string name="summary_label">Description:</string>
+    <string name="log_failed_data_retrieval">Couldn\'t load data</string>
+    <string name="home_screen_title">Popular Movies</string>
+    <string name="popularity_label">Popularity</string>
+    <string name="favourites_label">Favourites</string>
+    <string name="mark_as_favourite_label">Mark as Favourite</string>
+    <string name="remove_favourite_label">Remove Favourite</string>
+</resources>
